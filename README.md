@@ -2,7 +2,7 @@
 CTU FEE Subject Database Systems
 
 - website: `TBA`
-- BRUTE: `TBA`
+- BRUTE: `https://cw.felk.cvut.cz/brute/student/course/1589`
 
 ## License
 GNU General Public License v3.0\
