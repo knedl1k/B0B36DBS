@@ -1,7 +1,7 @@
 # B0B36DBS
 CTU FEE Subject Database Systems
 
-- website: `TBA`
+- website: `https://cw.fel.cvut.cz/b232/courses/b0b36dbs/start`
 - BRUTE: `https://cw.felk.cvut.cz/brute/student/course/1589`
 
 ## License
