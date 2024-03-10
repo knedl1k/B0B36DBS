@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Konceptuální model</title>
+</head>
+<body>
+
+<center>
+<h1>CP-1 Konceptuální model </h1>
+Jakub Adamec --- adamej14@fel.cvut.cz
+</center>
+
+<h2> 1. Popis modelu </h2>
+Jedná se o statistický model letišť. Databáze je určena především k cílenému shromažďování dat za účelem statistické analýzy vytíženosti a atraktivity letišť.
+<br>
+<br>
+O jednotlivých <b>Letišťích</b> se ukládá jejich unikátní ICAO kód, jejich název, město a stát.
+<br>
+<br>
+O samostatném <b>Letu</b> si ukládáme číslo letu + čas odletu a příletu. Číslo letu a jeden z časů slouží jako identifikátor. Také si zaznamenáváme vztah mezi samostatným <b>Letem</b> a <b>Letištěm</b> odkud a kam se let realizuje.
+U <b>Letu</b> nás také bude zajímat, jestli na nějaký další <b>Let</b> nenavazuje, tzn. jestli celková trasa nevyžaduje nějaké přestupy.
+<br>
+<br>
+U <b>Letadla</b> máme uloženo kdo ho vlastní a jeho registrační značku, která je unikátním identifikátorem. <b>Letadlo</b> se následně dělí na <b>Nákladní</b>, u něhož si za účelem statistiky zapisujeme jeho nosnost, a <b>Civilní</b>, u kterého nás zajímá kapacita pasažerů.
+Dále zaznamenáme vztah <b>Letadla</b> a <b>Letu</b>, tedy jaké <b>Letadlo</b> je pro daný <b>Let</b> určeno.
+<br>
+<br>
+Pro <b>Aerolinku</b> si uložíme její unikátní kód, název a zemi původu. Také vztah mezi <b>Aerolinkou</b> a <b>Letem</b>, tedy jaká <b>Aerolinka</b> zajišťuje jaký <b>Let</b>.
+<br>
+<br>
+Pro jednotlivého <b>Pasažera</b> zapíšeme do databáze jeho křestní jméno, případně jména, přijmení, datum narození a číslo pasu, jež je jeho unikátním identifikátorem. Také nás zajímá jakým <b>Letem</b> daný <b>Pasažér</b> letí, což je naznačeno vazbou.
+<br>
+<br>
+<b>Zavazadlo</b> je pak identifikováno kombinací <b>Pasažéra</b> a informací o letu, na který je přiděleno. 
+V neposlední řadě si u vazby převozu zaznamenáme hmotnost, kterou jeden <b>Pasažér</b> převáží.
+<br>
+<br>
+
+<img align="center" src="letiste.png" />
+<center>Obr. 1: Konceptuální model databáze</center>
+
+
+</body>
+</html>
+
