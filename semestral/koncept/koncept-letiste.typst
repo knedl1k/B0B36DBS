@@ -1,0 +1,51 @@
+#set par(justify: true)
+#set text(
+  font: "Latin Modern Roman",
+  size: 10pt,
+)
+
+#set page(
+  paper: "a4",
+  header:[
+    #set align(center)
+    = CP-1 Konceptuální model
+    Jakub Adamec ---  adamej14\@fel.cvut.cz
+  ],
+  
+  footer:[
+    #set align(left)
+    Praha, jaro 2024
+    #set align(center)
+    #counter(page).display(
+      "1",
+    )
+  ],
+  
+)
+
+
+== 1. Popis modelu
+Jedná se o statistický model letišť. Databáze je určena především k cílenému shromažďování dat za účelem statistické analýzy vytíženosti a atraktivity letišť.
+
+O jednotlivých *Letišťích* se ukládá jejich unikátní ICAO kód, jejich název, město a stát.
+
+O samostatném *Letu* si ukládáme číslo letu + čas odletu a příletu. Číslo letu a jeden z časů slouží jako identifikátor. Také si zaznamenáváme vztah mezi samostatným *Letem* a *Letištěm* odkud a kam se let realizuje.
+U *Letu* nás také bude zajímat, jestli na nějaký další *Let* nenavazuje, tzn. jestli celková trasa nevyžaduje nějaké přestupy.
+
+U *Letadla* máme uloženo kdo ho vlastní a jeho registrační značku, která je unikátním identifikátorem. *Letadlo* se následně dělí na *Nákladní*, u něhož si za účelem statistiky zapisujeme jeho nosnost, a *Civilní*, u kterého nás zajímá kapacita pasažerů.
+Dále zaznamenáme vztah *Letadla* a *Letu*, tedy jaké *Letadlo* je pro daný *Let* určeno.
+
+Pro *Aerolinku* si uložíme její unikátní kód, název a zemi původu. Také vztah mezi *Aerolinkou* a *Letem*, tedy jaká *Aerolinka* zajišťuje jaký *Let*.
+
+Pro jednotlivého *Pasažera* zapíšeme do databáze jeho křestní jméno, případně jména, přijmení, datum narození a číslo pasu, jež je jeho unikátním identifikátorem. Také nás zajímá jakým *Letem* daný *Pasažér* letí, což je naznačeno vazbou.
+
+*Zavazadlo* je pak identifikováno kombinací *Pasažéra* a informací o letu, na který je přiděleno. 
+V neposlední řadě si u vazby převozu zaznamenáme hmotnost, kterou jeden *Pasažér* převáží.
+#show figure.caption: it => [Obr.1#it.separator #it.body]
+#figure(
+  image("letiste.png", width: 100%),
+  caption: [
+   Konceptuální model databáze
+  ],
+)
+
