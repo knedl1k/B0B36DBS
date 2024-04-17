@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS Zavazadlo;
 DROP TABLE IF EXISTS Krestni_jmeno;
-DROP TABLE IF EXISTS Krestni_jmeno;
 DROP TABLE IF EXISTS Pasazer;
 DROP TABLE IF EXISTS Civilni;
 DROP TABLE IF EXISTS Nakladni;
@@ -23,7 +22,7 @@ CREATE TABLE Letiste (
 CREATE TABLE Let (
     cislo_letu VARCHAR(6),
     cas_odletu TIMESTAMP,
-    cas_priletu TIMESTAMP,
+    cas_priletu TIMESTAMP NOT NULL,
     ICAO_kod_prilet VARCHAR(4) REFERENCES Letiste (ICAO_kod),
     ICAO_kod_odlet VARCHAR(4) REFERENCES Letiste (ICAO_kod),
     PRIMARY KEY (cislo_letu, cas_odletu)
@@ -36,12 +35,11 @@ CREATE TABLE Navazuje_na ( -- TODO
     PRIMARY KEY (cislo_letu, cas_odletu, navazuje),
     FOREIGN KEY (cislo_letu, cas_odletu) REFERENCES Let (cislo_letu, cas_odletu),
     CONSTRAINT navazuje FOREIGN KEY (cislo_letu, cas_odletu) REFERENCES Let (cislo_letu, cas_odletu)
-    --FOREIGN KEY (navazuje) REFERENCES Let (cislo_letu, cas_odletu)
 );
 
 CREATE TABLE Aerolinka (
     kod_spolecnosti VARCHAR(3) PRIMARY KEY,
-    nazev VARCHAR(255) NOT NULL,
+    nazev VARCHAR(255) NOT NULL UNIQUE,
     zeme_puvodu VARCHAR(255) NOT NULL
 );
 
@@ -96,7 +94,7 @@ CREATE TABLE Krestni_jmeno ( -- TODO
     FOREIGN KEY (cislo_pasu) REFERENCES Pasazer (cislo_pasu)
 );
 
-CREATE TABLE Zavazadlo ( -- TODO
+CREATE TABLE Zavazadlo (
     datum DATE,
     cislo_letu VARCHAR(10),
     cislo_pasu VARCHAR(20),

@@ -1,6 +1,0 @@
-CREATE TABLE Letiste (
-    ICAO_kod VARCHAR(4) PRIMARY KEY,
-    nazev VARCHAR(255) NOT NULL,
-    mesto VARCHAR(255) NOT NULL,
-    stat VARCHAR(255) NOT NULL
-);
