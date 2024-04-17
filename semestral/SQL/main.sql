@@ -22,7 +22,7 @@ CREATE TABLE Letiste (
 CREATE TABLE Let (
     cislo_letu VARCHAR(6),
     cas_odletu TIMESTAMP,
-    cas_priletu TIMESTAMP NOT NULL,
+    cas_priletu TIMESTAMP NOT NULL UNIQUE,
     ICAO_kod_prilet VARCHAR(4) REFERENCES Letiste (ICAO_kod),
     ICAO_kod_odlet VARCHAR(4) REFERENCES Letiste (ICAO_kod),
     PRIMARY KEY (cislo_letu, cas_odletu)
@@ -39,11 +39,11 @@ CREATE TABLE Navazuje_na ( -- TODO
 
 CREATE TABLE Aerolinka (
     kod_spolecnosti VARCHAR(3) PRIMARY KEY,
-    nazev VARCHAR(255) NOT NULL UNIQUE,
+    nazev VARCHAR(255) NOT NULL,
     zeme_puvodu VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Zajistuje ( -- TODO
+CREATE TABLE Zajistuje (
     kod_spolecnosti VARCHAR(3),
     cislo_letu VARCHAR(10),
     cas_odletu TIMESTAMP,
@@ -57,7 +57,7 @@ CREATE TABLE Letadlo (
     vlastnik VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Leti ( -- TODO
+CREATE TABLE Leti (
     registracni_znacka VARCHAR(10),
     cislo_letu VARCHAR(10),
     cas_odletu TIMESTAMP,
@@ -87,18 +87,31 @@ CREATE TABLE Pasazer (
     FOREIGN KEY (registracni_znacka) REFERENCES Letadlo (registracni_znacka)
 );
 
-CREATE TABLE Krestni_jmeno ( -- TODO
+CREATE TABLE Krestni_jmeno (
     cislo_pasu VARCHAR(20),
-    krestni_jmeno VARCHAR(255),
+    krestni_jmeno VARCHAR(10),
     PRIMARY KEY (cislo_pasu, krestni_jmeno),
     FOREIGN KEY (cislo_pasu) REFERENCES Pasazer (cislo_pasu)
 );
 
 CREATE TABLE Zavazadlo (
-    datum DATE,
+    datum TIMESTAMP,
     cislo_letu VARCHAR(10),
     cislo_pasu VARCHAR(20),
     hmotnost DECIMAL NOT NULL,
     PRIMARY KEY (datum, cislo_letu, cislo_pasu),
     FOREIGN KEY (cislo_pasu) REFERENCES Pasazer (cislo_pasu)
 );
+
+-- vsichni pasazeri se zavazdlem
+SELECT *
+FROM pasazer, zavazadlo
+WHERE pasazer.cislo_pasu=zavazadlo.cislo_pasu;
+-- vsichni pasazeri bez zavazadla
+SELECT *
+FROM Pasazer
+WHERE NOT EXISTS(
+    SELECT cislo_pasu
+    FROM zavazadlo
+    WHERE zavazadlo.cislo_pasu =Pasazer.cislo_pasu
+ );
