@@ -22,7 +22,6 @@ def generate_ICAO_code():
     code = ''.join(random.choices(string.ascii_uppercase, k=4))
     return code
 
-
 def generate_letiste_data(n):
     with open('letiste_data.csv', 'w', newline='') as csvfile:
         fieldnames = ['ICAO_kod', 'nazev', 'mesto', 'stat']
@@ -82,7 +81,6 @@ def generate_registznacka():
             generated_registrznacka_codes.add(code)
             return code
 
-
 def generate_letadlo_data(n):
     with open('letadlo_data.csv', 'w', newline='') as csvfile:
         fieldnames=['registracni_znacka', 'vlastnik']
@@ -98,22 +96,12 @@ taken_generated_codes=set()
 
 def pick_registrznacka(fr):
     while True:
+
         code=random.choice(tuple(generated_registrznacka_codes))
         if code not in taken_generated_codes:
             taken_generated_codes.add(code)
             return code
 
-def generate_civilni_data(n):
-    midpoint=len(generated_registrznacka_codes) // 2
-    with open('civilni_data.csv', 'w', newline='') as csvfile:
-        fieldnames=['registracni_znacka', 'kapacita_pasazeru']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        #writer.writeheader()
-        for _ in range(n):
-            writer.writerow({
-                'registracni_znacka': pick_registrznacka(generated_registrznacka_codes[midpoint:]),
-                'kapacita_pasazeru': random.randint(20, 800),
-            })
 def generate_nakladni_data(n):
     midpoint=len(list(generated_registrznacka_codes)) // 2
     ls=list(generated_registrznacka_codes)[:midpoint]
@@ -125,6 +113,19 @@ def generate_nakladni_data(n):
             writer.writerow({
                 'registracni_znacka': pick_registrznacka(ls),
                 'nosnost': random.randint(5, 100),
+            })
+
+def generate_civilni_data(n):
+    midpoint=len(generated_registrznacka_codes) // 2
+    ls=list(generated_registrznacka_codes)[midpoint:]
+    with open('civilni_data.csv', 'w', newline='') as csvfile:
+        fieldnames=['registracni_znacka', 'kapacita_pasazeru']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        #writer.writeheader()
+        for _ in range(n):
+            writer.writerow({
+                'registracni_znacka': pick_registrznacka(ls),
+                'kapacita_pasazeru': random.randint(20, 800),
             })
 
 def generate_pasazer_data(n):
@@ -142,6 +143,29 @@ def generate_pasazer_data(n):
                 'registracni_znacka': pick_registrznacka(ls)
             })
 
+def generate_krestnijmeno_data(n):
+    with open('krestniJmeno_data.csv', 'w', newline='') as csvfile:
+        fieldnames=['cislo_pasu', 'krestni_jmeno']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        #writer.writeheader()
+        for _ in range(n):
+            writer.writerow({
+                'cislo_pasu': fake.passport_number(),
+                'krestni_jmeno': fake.date_time(),
+            })
+
+def generate_zavazadlo_data(n):
+    with open('krestniJmeno_data.csv', 'w', newline='') as csvfile:
+        fieldnames=['datum', 'cislo_letu', 'cislo_pasu', 'hmotnost']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        #writer.writeheader()
+        for _ in range(n):
+            writer.writerow({
+                'datum': ,
+                'cislo_letu': ,
+                'cislo_pasu': fake.passport_number(),
+                'hmotnost': random.randint(1, 100),
+            })
 
 
 if __name__ == "__main__":
@@ -154,3 +178,7 @@ if __name__ == "__main__":
     
     generate_nakladni_data(int(num_letadlo/2))
     generate_civilni_data(int(num_letadlo/2))
+
+    generate_pasazer_data(num_letadlo)
+
+    generate_krestnijmeno_data(num_letadlo)
