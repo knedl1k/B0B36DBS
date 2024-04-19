@@ -1,4 +1,4 @@
-/*
+
 SELECT DISTINCT OS.jmeno, OS.prijmeni
 FROM osobni_udaje OS
 WHERE EXISTS (SELECT *
@@ -20,9 +20,8 @@ SELECT * from nalezi_zanru;
 SELECT nazev, count(ISBN)
 FROM nalezi_zanru
 GROUP BY nazev;
-*/
 
-/*
+
 SELECT kniha.nazev, ISBN
 FROM kniha JOIN nalezi_zanru USING (ISBN)
 WHERE nalezi_zanru.nazev = 'Česká a slovenská beletrie'
@@ -115,7 +114,7 @@ WHERE ISBN IN (SELECT isbn
                EXCEPT (SELECT isbn
                       FROM nalezi_zanru
                       WHERE nalezi_zanru.nazev IN ('Česká a slovenská beletrie', 'Světová beletrie') ));
-*/
+
 --------------------
 
 SELECT nazev, rok, jmeno, prijmeni, ISBN
