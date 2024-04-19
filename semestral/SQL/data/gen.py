@@ -231,19 +231,40 @@ def generate_leti_data(n):
                 'cislo_letu': ls[i],
                 'cas_odletu': odlety[ls[i]]
             })
-"""
+
+taken_navazujeCislo_code=set()
+taken_navazujiciCislo_code=set()
 def generate_navazujeNa_data(n):
     with open('navazujeNa_data.csv', 'w', newline='') as csvfile:
-        fieldnames=['cislo_letu', 'cas_odletu', 'navazuje']
-        writer=csv.DictWriter(csvfile, fieldnames=fieldnames)
+        fieldnames = ['cislo_letu', 'cas_odletu', 'navazujici_cislo_letu', 'navazujici_cas_odletu']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         #writer.writeheader()
+
+        unique_ICAO_kody_odletu = list(generated_ICAO_codes)
+        
         for _ in range(n):
-            writer.writerow({
-                'cislo_letu': ,
-                'cas_odletu': ,
-                'navazuje':
-            })
-"""
+            cislo_letu = random.choice(generated_cisloletu)
+            if(cislo_letu in taken_navazujeCislo_code):
+                continue
+            taken_navazujeCislo_code.add(cislo_letu)
+            ICAO_kod_odlet = odlety[cislo_letu]
+            navazujici_lety = [let for let in generated_cisloletu if let != cislo_letu and prilety[let] > odlety[cislo_letu] and odlety[let] - prilety[cislo_letu] < timedelta(days=1)]
+            
+            if navazujici_lety:
+                navazujici_cislo_letu = random.choice(navazujici_lety)
+                if(navazujici_cislo_letu in taken_navazujiciCislo_code):
+                    continue
+                taken_navazujiciCislo_code.add(navazujici_cislo_letu)
+                navazujici_cas_odletu = odlety[navazujici_cislo_letu]
+                
+                writer.writerow({
+                    'cislo_letu': cislo_letu,
+                    'cas_odletu': odlety[cislo_letu],
+                    'navazujici_cislo_letu': navazujici_cislo_letu,
+                    'navazujici_cas_odletu': navazujici_cas_odletu
+                })
+
+""""""
 def generate_zajistuje_data():
     ls=list(generated_cisloletu)
     ls2=list(generated_kodspol_codes)
@@ -253,7 +274,7 @@ def generate_zajistuje_data():
         #writer.writeheader()
         for i in range(len(ls2)):
             writer.writerow({
-                'kod_spolecnosti': ls2[random.randint(0, len(ls2))],
+                'kod_spolecnosti': ls2[random.randint(0, len(ls2)-1)],
                 'cislo_letu': ls[i],
                 'cas_odletu': odlety[ls[i]]
             })
@@ -261,7 +282,7 @@ def generate_zajistuje_data():
 
 if __name__ == "__main__":
     num_letadlo=1_000
-    num_pasazer=num_letadlo*10
+    num_pasazer=40_000
     ''''''
     generate_letiste_data(10_000)
 
@@ -283,3 +304,5 @@ if __name__ == "__main__":
     generate_leti_data(num_letadlo)
 
     generate_zajistuje_data()
+
+    generate_navazujeNa_data(num_letadlo)
