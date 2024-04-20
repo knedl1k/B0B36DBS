@@ -171,6 +171,10 @@ Všechny tabulky jsem vygeneroval pomocí přiloženého skriptu v kapitole 4. S
 Příkladem manuálního vložení řádku do tabulky by bylo například:
 #sourcecode[```sql
 INSERT INTO Letiste VALUES ('AAAA', 'Vaclav Havel Airport Prague', 'Prague', 'Czech Republic');
+INSERT INTO Aerolinka VALUES ('WXH', 'Smart Wings', 'Czech Republic');
+INSERT INTO Pasazer VALUES ('P01418606', '1975-06-04', 'Dominguez', 'KM-PHO4US');
+INSERT INTO Krestni_jmeno VALUES ('P01418606', 'Jose');
+INSERT INTO Zavazadlo VALUES ('2024-01-29 11:42:26.116000', 'iL0356', 'P01418606', '40');
 ```]
 == 3. SQL dotazy pro získání údajů z databáze
 \
