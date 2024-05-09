@@ -17,6 +17,18 @@ public class Let {
     @JoinColumn(name = "icao_kod_odlet")
     private Letiste icaoKodOdlet;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "icao_kod_prilet")
+    private Letiste icaoKodPrilet;
+
+    public Letiste getIcaoKodPrilet() {
+        return icaoKodPrilet;
+    }
+
+    public void setIcaoKodPrilet(Letiste icaoKodPrilet) {
+        this.icaoKodPrilet = icaoKodPrilet;
+    }
+
     public LetId getId() {
         return id;
     }
